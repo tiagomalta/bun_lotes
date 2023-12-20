@@ -39,21 +39,15 @@
     <div class="mobile-menu-closer"></div>
     <div class="content-menu">
         <div class="content-infos">
-            <div class="info"><b>Versão:</b> 1.0.6</div>
-            <div class="info"><b>Ultima Atualização:</b> 12/12/2023</div>
+            <div class="info"><b>Versão:</b> 1.0.1</div>
+            <div class="info"><b>Ultima Atualização:</b> 20/12/2023</div>
         </div>
         <ul>
             <li class="scroll-to-link active" data-target="content-get-started">
                 <a>Iniciar</a>
             </li>
-            <li class="scroll-to-link" data-target="content-get-clientes">
-                <a>Consultar Clientes</a>
-            </li>
-            <li class="scroll-to-link" data-target="content-post-clientes">
-                <a>Incluir Clientes</a>
-            </li>
-			<li class="scroll-to-link" data-target="content-post-titulopr">
-                <a>Gerar Título / Boleto</a>
+            <li class="scroll-to-link" data-target="content-post-lotes">
+                <a>Integração do lote</a>
             </li>
         </ul>
     </div>
@@ -73,16 +67,27 @@
             </p>
         
         </div>
-        <div class="overflow-hidden content-section" id="content-get-clientes">
-            <h2>Consultar Clientes</h2>
+        <div class="overflow-hidden content-section" id="content-post-lotes">
+            <h2>Integração do lote</h2>
             <pre><code class="bash">
 # Exemplo curl \
--X GET http://solicitarurl.com/rest/MrClientes \
+-X GET http://solicitarurl.com/rest/APILOTES/APILOTEESP \
 --header 'Content-Type: application/json' \
---header 'Authorization: Basic xxx' \
---data '[   
-    {   
-        "cnpj_cpf":"00000000000000"
+--data '[
+    {
+        "cLFilial":"101",
+        "cProduto":"PAN00009",
+        "cArmazem":"01",
+        "cOP":"000001",
+        "cLote":"TESTE",
+        "nQuantidade":0,
+        "cCaracteristica":"TESTE",
+        "cResultado":"OK",
+        "dValidade":"30/03/24",
+        "dFabricacao":"20/12/23",
+        "cValMin":"AA",
+        "cValMax":"ZZ",
+        "cStatus":"APROVADO"
     }
 ]'
         	</code></pre>
@@ -91,68 +96,18 @@ Exemplo retorno:
 
 Com sucesso:
 
-[
-    {
-        "status": true,
-        "mensagem": "00000000000000",
-        "codigo": "101138",
-        "loja": "01",
-        "nome": "TESTE 123                               ",
-        "tipopessoa": "F",
-        "endereco": "RUA TESTE                                                                       ",
-        "tipo": "F",
-        "estado": "SP",
-        "municipio": "SAO PAULO                                                   ",
-        "nomefan": "TESTE               ",
-        "bairro": "SANTANA                                 ",
-        "cep": "02402003",
-        "codmun": "50308",
-        "endcob": "RUA TESTE                               ",
-        "ddd": "11 ",
-        "tel": "997766554      ",
-        "endent": "RUA TESTE                               ",
-        "contato": "TESTE          ",
-        "inscr": "ISENTO            ",
-        "pais": "105",
-        "inscrm": "ISENTO            ",
-        "conta": "00000000000000000001",
-        "codpais": "01058",
-        "cnae": "9601-7/01"
-    }
-]
+{
+    "status": true,
+    "msg": "integrado com sucesso."
+}
 
 
 Sem sucesso:
 
-[
-    {
-        "status": false,
-        "mensagem": "campos obrigatorios - cnpj_cpf/s",
-        "codigo": "",
-        "loja": "",
-        "nome": "",
-        "tipopessoa": "",
-        "endereco": "",
-        "tipo": "",
-        "estado": "",
-        "municipio": "",
-        "nomefan": "",
-        "bairro": "",
-        "cep": "",
-        "codmun": "",
-        "endcob": "",
-        "ddd": "",
-        "tel": "",
-        "endent": "",
-        "contato": "",
-        "inscr": "",
-        "pais": "",
-        "inscrm": "",
-        "conta": "",
-        "codpais": "",
-        "cnae": ""
-    }
-]
+{
+    "status": false,
+    "msg": "erro."
+}
 
                 </code></pre>
             <h4>BODY PARAMETERS</h4>
@@ -166,375 +121,61 @@ Sem sucesso:
                 </thead>
                 <tbody>
                 <tr>
-                    <td>cnpj_cpf</td>
-                    <td>String (max 14)</td>
-                    <td></td>
-                </tr>
-                </tbody>
-            </table>
-        </div>
-      
-
-                
-        <div class="overflow-hidden content-section" id="content-post-clientes">
-            <h2>Incluir Clientes</h2>
-            <pre><code class="bash">
-# Exemplo curl
-curl \
--X POST http://solicitarurl.com/rest/MrClientes \
---header 'Content-Type: application/json' \
---header 'Authorization: Basic xxx' \
---data '[   
-    {   
-        "nome":"TESTE 123",
-        "nomefan":"TESTE",
-        "tipopessoa":"F",
-        "endereco":"RUA TESTE",
-        "bairro":"SANTANA",
-        "cep":"02402003",
-        "codmun":"50308",
-        "endcob":"RUA TESTE",
-        "ddd":"11",
-        "tel":"997766554",
-        "endent":"RUA TESTE",
-        "tipo":"F",
-        "estado":"SP",
-        "municipio":"SAO PAULO",
-        "cnpj_cpf":"00000000000000",
-        "contato":"TESTE",
-        "inscr":"ISENTO",
-        "pais":"105",
-        "inscrm":"ISENTO",
-        "conta":"00000000000000000001",
-        "codpais":"01058",
-        "cnae":"9601-7/01"
-    }
-]'
-                </code></pre>
-            <pre><code class="json">
-Exemplo retorno:
-
-Com sucesso:
-
-[
-    {
-        "status": true,
-        "mensagem": "00000000000000",
-        "codigo": "101138",
-        "loja": "01",
-        "nome": "TESTE 123                               ",
-        "tipopessoa": "F",
-        "endereco": "RUA TESTE                                                                       ",
-        "tipo": "F",
-        "estado": "SP",
-        "municipio": "SAO PAULO                                                   ",
-        "nomefan": "TESTE               ",
-        "bairro": "SANTANA                                 ",
-        "cep": "02402003",
-        "codmun": "50308",
-        "endcob": "RUA TESTE                               ",
-        "ddd": "11 ",
-        "tel": "997766554      ",
-        "endent": "RUA TESTE                               ",
-        "contato": "TESTE          ",
-        "inscr": "ISENTO            ",
-        "pais": "105",
-        "inscrm": "ISENTO            ",
-        "conta": "00000000000000000001",
-        "codpais": "01058",
-        "cnae": "9601-7/01"
-    }
-]
-
-
-Sem sucesso:
-
-[
-    {
-        "status": false,
-        "mensagem": "campos obrigatorios - estado/municipio/",
-        "codigo": "",
-        "loja": "",
-        "nome": "",
-        "tipopessoa": "",
-        "endereco": "",
-        "tipo": "",
-        "estado": "",
-        "municipio": "",
-        "nomefan": "",
-        "bairro": "",
-        "cep": "",
-        "codmun": "",
-        "endcob": "",
-        "ddd": "",
-        "tel": "",
-        "endent": "",
-        "contato": "",
-        "inscr": "",
-        "pais": "",
-        "inscrm": "",
-        "conta": "",
-        "codpais": "",
-        "cnae": ""
-    }
-]
-
-                </code></pre>
-            <h4>BODY PARAMETERS</h4>
-            <table class="central-overflow-x">
-                <thead>
-                <tr>
-                    <th>Campo</th>
-                    <th>Tipo</th>
-                    <th>Descrição</th>
-                </tr>
-                </thead>
-                <tbody>
-                <tr>
-                    <td>nome</td>
-                    <td>String (max 40)</td>
-                    <td>alfanumérico e não pode conter caracteres especiais</td>
-                </tr>
-                <tr>
-                    <td>tipopessoa</td>
-                    <td>String (max 1)</td>
-                    <td>F: Fisica<br>
-                    J: Juridica</td>
-                </tr>
-                <tr>
-                    <td>endereco</td>
-                    <td>String (max 80)</td>
-                    <td></td>
-                </tr>
-                <tr>
-                    <td>tipo</td>
-                    <td>String (max 1)</td>
-                    <td>F: Cons.Final<br>
-                    L: Produtor Rural<br>
-                    R: Revendedor<br>
-                    S: Solidario<br>
-                    X: Exportacao<br>
-                    </td>
-                </tr>
-                <tr>
-                    <td>estado</td>
+                    <td>cLFilial</td>
+                    <td>String (max 3)</td>
+                    <td>Filial do lote</td>
+                </tr><tr>
+                    <td>cProduto</td>
+                    <td>String (max 15)</td>
+                    <td>(Alfanumérico)</td>
+                </tr><tr>
+                    <td>cArmazem</td>
                     <td>String (max 2)</td>
-                    <td></td>
-                </tr>
-                <tr>
-                    <td>municipio</td>
-                    <td>String (max 60)</td>
-                    <td></td>
-                </tr>
-                <tr>
-                    <td>cnpj_cpf</td>
-                    <td>String (max 14)</td>
-                    <td></td>
-                </tr>
-                <tr>
-                    <td>nomefan</td>
-                    <td>String (max 20)</td>
-                    <td>Nome Fantasia</td>
-                </tr>
-                <tr>
-                    <td>bairro</td>
-                    <td>String (max 40)</td>
-                    <td></td>
-                </tr>
-                <tr>
-                    <td>cep</td>
-                    <td>String (max 8)</td>
-                    <td></td>
-                </tr>
-                <tr>
-                    <td>codmun</td>
-                    <td>String (max 5)</td>
-                    <td></td>
-                </tr>
-                <tr>
-                    <td>endcob</td>
-                    <td>String (max 40)</td>
-                    <td>Endereço de cobrança</td>
-                </tr>
-                <tr>
-                    <td>ddd</td>
-                    <td>String (max 3)</td>
-                    <td></td>
-                </tr>
-                <tr>
-                    <td>tel</td>
-                    <td>String (max 15)</td>
-                    <td>Telefone</td>
-                </tr>
-                <tr>
-                    <td>endent</td>
-                    <td>String (max 40)</td>
-                    <td>Endereço de entrega</td>
-                </tr>
-                <tr>
-                    <td>contato</td>
-                    <td>String (max 15)</td>
-                    <td></td>
-                </tr>
-                <tr>
-                    <td>inscr</td>
-                    <td>String (max 18)</td>
-                    <td>Inscricao Estadual</td>
-                </tr>
-                <tr>
-                    <td>pais</td>
-                    <td>String (max 3)</td>
-                    <td></td>
-                </tr>
-                <tr>
-                    <td>inscrm</td>
-                    <td>String (max 18)</td>
-                    <td>Inscricao Municipal</td>
-                </tr>
-                <tr>
-                    <td>conta</td>
-                    <td>String (max 20)</td>
-                    <td>Conta Contabil</td>
-                </tr>
-                <tr>
-                    <td>codpais</td>
-                    <td>String (max 5)</td>
-                    <td></td>
-                </tr>
-                <tr>
-                    <td>cnae</td>
-                    <td>String (max 9)</td>
-                    <td></td>
-                </tr>
-                </tbody>
-            </table>
-        </div>
-      
-    
-   <div class="overflow-hidden content-section" id="content-post-titulopr">
-            <h2>Gerar Título / Boleto</h2>
-            <pre><code class="bash">
-# Exemplo curl
-curl \
--X POST http://solicitarurl.com/rest/MrTitPR \
---header 'Content-Type: application/json' \
---header 'Authorization: Basic xxx' \
---data '[   
-    {   
-        "filial":"0101",
-        "codigo":"000001",
-        "loja":"01",
-        "valor":100,
-        "vencimento":"20/11/2023",
-        "natureza":"000000000",
-        "banco":"000",
-        "agencia":"0000",
-        "conta":"000000",
-        "processo":"FXDACP0000000841"
-    }
-]'
-                </code></pre>
-            <pre><code class="json">
-Exemplo retorno:
-
-Com sucesso:
-
-[
-    {
-        "status": true,
-        "mensagem": "gerado com sucesso.",
-        "filial": "0101",
-        "codigo": "000001",
-        "loja": "01",
-        "valor": 100,
-        "numero": "000000008",
-        "prefixo": "LEC",
-        "boleto": "XXXXXXXXXXXXXX"
-    }
-]
-
-
-Sem sucesso:
-
-[
-    {
-        "status": false,
-        "mensagem": "campos obrigatorios - valor/",
-        "filial": "",
-        "codigo": "",
-        "loja": "",
-        "valor": 0,
-        "numero": "",
-        "prefixo": "",
-        "boleto": ""
-    }
-]
-
-                </code></pre>
-            <h4>BODY PARAMETERS</h4>
-            <table class="central-overflow-x">
-                <thead>
-                <tr>
-                    <th>Campo</th>
-                    <th>Tipo</th>
-                    <th>Descrição</th>
-                </tr>
-                </thead>
-                <tbody>
-                <tr>
-                    <td>filial</td>
-                    <td>String (max 4)</td>
-                    <td>codigo da filial de geração do título</td>
-                </tr>
-                <tr>
-                    <td>codigo</td>
+                    <td>(Alfanumérico)</td>
+                </tr><tr>
+                    <td>cOP</td>
                     <td>String (max 6)</td>
-                    <td>codigo do cliente</td>
-                </tr>
-                <tr>
-                    <td>loja</td>
-                    <td>String (max 2)</td>
-                    <td>loja do cliente</td>
-                </tr>
-                <tr>
-                    <td>valor</td>
-                    <td>Decimal (max 16,2)</td>
-                    <td></td>
-                </tr>
-                <tr>
-                    <td>vencimento</td>
+                    <td>(Alfanumérico)</td>
+                </tr><tr>
+                    <td>cLote</td>
                     <td>String (max 10)</td>
+                    <td>(Alfanumérico)</td>
+                </tr><tr>
+                    <td>nQuantidade</td>
+                    <td>Number (max 14,4)</td>
                     <td></td>
-                </tr>
-                <tr>
-                    <td>natureza</td>
+                </tr><tr>
+                    <td>cCaracteristica</td>
+                    <td>String (max 80)</td>
+                    <td>(Alfanumérico)</td>
+                </tr><tr>
+                    <td>cResultado</td>
+                    <td>String (max 80)</td>
+                    <td>(Alfanumérico)</td>
+                </tr><tr>
+                    <td>dValidade</td>
                     <td>String (max 10)</td>
-                    <td></td>
-                </tr>
-                <tr>
-                    <td>banco</td>
-                    <td>String (max 3)</td>
-                    <td></td>
-                </tr>
-                <tr>
-                    <td>agencia</td>
-                    <td>String (max 5)</td>
-                    <td></td>
-                </tr>
-                <tr>
-                    <td>conta</td>
+                    <td>(Alfanumérico)</td>
+                </tr><tr>
+                    <td>dFabricacao</td>
                     <td>String (max 10)</td>
-                    <td></td>
-                </tr>
-                <tr>
-                    <td>processo</td>
-                    <td>String (max 25)</td>
-                    <td></td>
+                    <td>(Alfanumérico)</td>
+                </tr><tr>
+                    <td>cValMin</td>
+                    <td>String (max 80)</td>
+                    <td>(Alfanumérico)</td>
+                </tr><tr>
+                    <td>cValMax</td>
+                    <td>String (max 80)</td>
+                    <td>(Alfanumérico)</td>
+                </tr><tr>
+                    <td>cStatus</td>
+                    <td>String (max 30)</td>
+                    <td>(Alfanumérico)</td>
                 </tr>
                 </tbody>
             </table>
         </div>
-      
     </div>
     </div>
     <div class="content-code"></div>
