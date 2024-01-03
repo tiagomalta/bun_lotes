@@ -39,8 +39,8 @@
     <div class="mobile-menu-closer"></div>
     <div class="content-menu">
         <div class="content-infos">
-            <div class="info"><b>Versão:</b> 1.0.1</div>
-            <div class="info"><b>Ultima Atualização:</b> 20/12/2023</div>
+            <div class="info"><b>Versão:</b> 1.0.2</div>
+            <div class="info"><b>Ultima Atualização:</b> 03/01/2024</div>
         </div>
         <ul>
             <li class="scroll-to-link active" data-target="content-get-started">
@@ -80,14 +80,16 @@
         "cArmazem":"01",
         "cOP":"000001",
         "cLote":"TESTE",
-        "nQuantidade":0,
+        "cAnalise":"A01",
+        "nQuantidade":1,
         "cCaracteristica":"TESTE",
         "cResultado":"OK",
         "dValidade":"30/03/24",
         "dFabricacao":"20/12/23",
         "cValMin":"AA",
         "cValMax":"ZZ",
-        "cStatus":"APROVADO"
+        "cStatus":"APROVADO",
+        "cImprime":"Sim"
     }
 ]'
         	</code></pre>
@@ -141,6 +143,11 @@ Sem sucesso:
                     <td>String (max 10)</td>
                     <td>(Alfanumérico)</td>
                 </tr><tr>
+                    <td>cAnalise</td>
+                    <td>String (max 3)</td>
+                    <td>(Alfanumérico)</td>
+					<td></td>
+                </tr><tr>
                     <td>nQuantidade</td>
                     <td>Number (max 14,4)</td>
                     <td></td>
@@ -172,6 +179,10 @@ Sem sucesso:
                     <td>cStatus</td>
                     <td>String (max 30)</td>
                     <td>(Alfanumérico)</td>
+                </tr><tr>
+                    <td>cImprime</td>
+                    <td>String (max 3)</td>
+                    <td>Sim ou Nao</td>
                 </tr>
                 </tbody>
             </table>
